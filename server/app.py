@@ -32,7 +32,7 @@ class AllCustomers(Resource):
 
     def post(self):
         try:
-            new_customer = Users_Customers(company_name=request.json.get('company_name'), user_type=request.json.get('user_type'), first_name=request.json.get('first_name'), last_name=request.json.get('last_name'), username=request.json.get('username'))
+            new_customer = Users_Customers(company_name=request.json.get('company_name'), user_type=request.json.get('user_type'), first_name=request.json.get('first_name'), last_name=request.json.get('last_name'), email=request.json.get('email'), username=request.json.get('username'))
             db.session.add(new_customer)
             db.session.commit()
 
@@ -46,6 +46,19 @@ class AllCustomers(Resource):
 
 
 api.add_resource(AllCustomers, '/customers')
+
+
+class AllDistributors(Resource):
+
+    def get(self):
+
+        distributors = Users_Distributors.query.all()
+
+        response_body = [distributor.to_dict() for distributor in distributors]
+        return make_response(response_body, 200)
+
+
+api.add_resource(AllDistributors, '/distributors')
 
 
 

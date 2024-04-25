@@ -14,6 +14,7 @@ class Users_Customers(db.Model, SerializerMixin):
     user_type = db.Column(db.String, nullable=False)
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
+    email = db.Column(db.String)
     username = db.Column(db.String, nullable=False)
     # password_hash = db.Column(db.String, nullable=False)
 
@@ -38,6 +39,7 @@ class Users_Distributors(db.Model, SerializerMixin):
     user_type = db.Column(db.String, nullable=False)
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
+    email = db.Column(db.String)
     username = db.Column(db.String, nullable=False)
     # password_hash = db.Column(db.String, nullable=False)
 
