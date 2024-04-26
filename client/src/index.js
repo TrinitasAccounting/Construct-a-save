@@ -4,7 +4,9 @@ import "./index.css";
 import { createRoot } from "react-dom/client";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import DistributorCards from "./components/DistributorCards";
+import DistributorCards from "./components/CustomersDistributor";
+import CustomersDistributors from "./components/CustomersDistributor";
+import LoginForm from './components/LoginForm';
 
 // import App from "./components/App";
 
@@ -17,7 +19,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/mydistributors',
-                element: <DistributorCards />
+                element: <CustomersDistributors />
+            },
+            {
+                path: '/login',
+                element: <LoginForm />
             }
         ]
     }

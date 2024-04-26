@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, make_response
+from flask import request, make_response, session
 from flask_restful import Resource
 
 # Local imports
@@ -11,6 +11,8 @@ from config import app, db, api
 # Add your model imports
 from models import Users_Customers, Users_Distributors, Customer_Products, Customer_Orders_Placed, Customers_Distributors, Distributor_Prices
 
+
+app.secret_key = b'\xea\xfb\xedQ\xf5-r/0g\x9d@^\xd4^l'
 
 # Views go here!
 
@@ -60,6 +62,73 @@ class AllDistributors(Resource):
 
 api.add_resource(AllDistributors, '/distributors')
 
+
+
+class Login(Resource):
+
+    def post(self):
+        username = request.json.get('username')
+        customer_user = Users_Customers.query.filter(Users_Customers.username == username).first()
+
+        if(customer_user):
+            # Check the below line, this may be wrong and not called "customer_id"
+            session['customer_id'] = customer_user.id
+            response_body = customer_user.to_dict()
+            response_body['distributors'] = [distributor.to_dict(only=('id', 'company_name')) for distributor in list(set(customer_user.distributors))]
+            return make_response(response_body, 201)
+        else:
+            response_body = {
+                'error': 'Invalid Username'
+            }
+            return make_response(response_body, 401)
+
+
+api.add_resource(Login, '/login')
+
+
+class CheckSession(Resource):
+    
+    def get(self):
+
+        # Debugging Line
+        # del(session['customer_id'])
+
+
+
+        # the line below might also need to be checked as it is connected to line 75___________________
+        customer_user = db.session.get(Users_Customers, session.get('customer_id'))
+
+        if(customer_user):
+            response_body = customer_user.to_dict()
+
+            # Check these serializations and lines to make sure they work properly once more data is in the seed.py
+            response_body['distributors'] = [distributor.to_dict() for distributor in list(set(customer_user.distributors))]
+
+            return make_response(response_body, 200)
+        else:
+            response_body = {
+                'error': 'Please Log In!'
+            }
+            return make_response(response_body, 401)
+
+
+api.add_resource(CheckSession, '/check_session')
+
+
+
+class Logout(Resource):
+
+    def delete(self):
+        if(session.get('customer_id')): 
+            del(session['customer_id'])
+        
+        response_body = {}
+        return make_response(response_body, 204)
+
+
+api.add_resource(Logout, '/logout')
+        
+        
 
 
 
