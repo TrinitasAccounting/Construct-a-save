@@ -1,18 +1,39 @@
-// import { NavLink } from "react-router-dom";
 
 
 
-// function NavBar() {
 
-
+// Example of only showing depending on the user or user type___________________________
+// function NavBar({user, logOutUser}) {
 //     return (
-//         <nav>
-//             <NavLink to='/'>Home</NavLink>
+//         <nav className="navbar">
+//             {/* {user ? 
+//                 <>
+//                     <NavLink to="/">Home</NavLink>
+//                     <NavLink to="/add_hotel">Add Hotel</NavLink>
+//                     <NavLink onClick={logOutUser} to="/login">Log Out</NavLink>
+//                 </> 
+//                 :
+//                 <NavLink to="/login">Login</NavLink>
+//             } */}
+//             {user ? <NavLink to="/">Home</NavLink> : null}
+//             {user && user.type === 'admin' ? <NavLink to="/add_hotel">Add Hotel</NavLink> : null}
+//             {user ? <NavLink onClick={logOutUser} to="/login">Log Out</NavLink> : null}
+//             {!user ? <NavLink to="/login">Login</NavLink> : null}
+//             {!user ? <NavLink to="/signup">Signup</NavLink> : null}
 //         </nav>
 //     )
 // }
 
-// export default NavBar;
+
+
+
+
+
+
+
+
+
+
 
 
 import { Fragment } from 'react'
@@ -34,7 +55,8 @@ const navigation = [
     { name: "My Product's", href: '#', current: false },
     { name: 'About Us', href: '#', current: false },
     { name: 'Login', href: '/login', current: false },
-    { name: 'Log Out', href: '/login', current: false },
+    { name: 'Log Out', href: '/login', current: 'logout' },
+    { name: 'Sign Up', href: '/signup', current: false },
 ]
 const userNavigation = [
     { name: 'Your Profile', href: '#' },
@@ -79,19 +101,57 @@ export default function NavBar({ userData, logOutUser }) {
                                             <div className="hidden md:block">
                                                 <div className="ml-10 flex items-baseline space-x-4">
                                                     {navigation.map((item) => (
-                                                        <a
-                                                            key={item.name}
-                                                            href={item.href}
-                                                            className={classNames(
-                                                                item.current
-                                                                    ? 'bg-gray-900 text-white'
-                                                                    : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                                                'rounded-md px-3 py-2 text-sm font-medium'
-                                                            )}
-                                                            aria-current={item.current ? 'page' : undefined}
-                                                        >
-                                                            {item.name}
-                                                        </a>
+                                                        item.name === 'Log Out' ? (
+                                                            <a
+                                                                key={item.name}
+                                                                href={item.href}
+                                                                onClick={logOutUser}
+                                                                className={classNames(
+                                                                    item.current
+                                                                        ? 'bg-gray-900 text-white'
+                                                                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                                    'rounded-md px-3 py-2 text-sm font-medium'
+                                                                )}
+                                                                aria-current={item.current ? 'page' : undefined}
+                                                            >
+                                                                {item.name}
+                                                            </a>
+
+                                                        )
+                                                            :
+
+                                                            (
+                                                                <a
+                                                                    key={item.name}
+                                                                    href={item.href}
+                                                                    className={classNames(
+                                                                        item.current
+                                                                            ? 'bg-gray-900 text-white'
+                                                                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                                        'rounded-md px-3 py-2 text-sm font-medium'
+                                                                    )}
+                                                                    aria-current={item.current ? 'page' : undefined}
+                                                                >
+                                                                    {item.name}
+                                                                </a>
+
+                                                            )
+
+
+
+                                                        // <a
+                                                        //     key={item.name}
+                                                        //     href={item.href}
+                                                        //     className={classNames(
+                                                        //         item.current
+                                                        //             ? 'bg-gray-900 text-white'
+                                                        //             : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                        //         'rounded-md px-3 py-2 text-sm font-medium'
+                                                        //     )}
+                                                        //     aria-current={item.current ? 'page' : undefined}
+                                                        // >
+                                                        //     {item.name}
+                                                        // </a>
                                                     ))}
                                                 </div>
                                             </div>
@@ -164,6 +224,41 @@ export default function NavBar({ userData, logOutUser }) {
                                 <Disclosure.Panel className="md:hidden">
                                     <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                                         {navigation.map((item) => (
+                                            // item.name === '' ? (
+                                            //     <Disclosure.Button
+                                            //         key={item.name}
+                                            //         as="a"
+                                            //         href={item.href}
+                                            //         className={classNames(
+                                            //             item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                            //             'block rounded-md px-3 py-2 text-base font-medium'
+                                            //         )}
+                                            //         aria-current={item.current ? 'page' : undefined}
+                                            //     >
+                                            //         Hello
+                                            //     </Disclosure.Button>
+
+                                            // )
+                                            //     :
+                                            //     (
+                                            //         <Disclosure.Button
+                                            //             key={item.name}
+                                            //             as="a"
+                                            //             href={item.href}
+                                            //             className={classNames(
+                                            //                 item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                            //                 'block rounded-md px-3 py-2 text-base font-medium'
+                                            //             )}
+                                            //             aria-current={item.current ? 'page' : undefined}
+                                            //         >
+                                            //             {item.name}
+                                            //         </Disclosure.Button>
+                                            //     )
+
+
+
+
+
                                             <Disclosure.Button
                                                 key={item.name}
                                                 as="a"
@@ -176,6 +271,8 @@ export default function NavBar({ userData, logOutUser }) {
                                             >
                                                 {item.name}
                                             </Disclosure.Button>
+
+
                                         ))}
                                     </div>
                                     <div className="border-t border-gray-700 pb-3 pt-4">
@@ -223,16 +320,18 @@ export default function NavBar({ userData, logOutUser }) {
                         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">{/* Your content */}</div>
                     </main>
                 </div>
-                <div className='flex ml-10'>
+                {/* <div className='flex ml-10'>
                     <NavLink onClick={logOutUser} to='/login'>Log Out</NavLink>
-                </div>
+                </div> */}
 
 
 
 
             </> :
-
-                <NavLink to='/login'>Login</NavLink>
+                <nav className='p-5'>
+                    <NavLink to='/login'>Login</NavLink>
+                    <NavLink className='p-5' to='/signup'>Sign Up</NavLink>
+                </nav>
 
 
 

@@ -15,12 +15,16 @@ function App() {
   const [user, setUser] = useState(null)
 
 
+
   // Getting all of the distributors for all customers__________________
   useEffect(() => {
     fetch('/distributors')
-      .then(res => res.json())
-      .then(data => setDistributors(data))
-  }, [])
+      .then(res => {
+        if (res.ok) {
+          res.json().then(data => setDistributors(data))
+        }
+      })
+  }, [user])
 
 
   // CheckSession useEffect to check for user on refreshes_______________
@@ -69,6 +73,31 @@ function App() {
   };
 
 
+  // Signing Up a new user (Customer version)
+  function signupUser(signupData) {
+    fetch('/signup', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(signupData)
+    })
+      .then(res => {
+        if (res.ok) {
+          res.json().then(userData => {
+            setUser(userData)
+            navigate('/')
+          })
+        }
+        else if (res.status === 400) {
+          res.json().then(errorData => alert('Did not work'))
+        }
+      })
+
+  }
+
+
   // Logging Out a user
   function logOutUser() {
     fetch('/logout', {
@@ -93,14 +122,9 @@ function App() {
     <div>
       <NavBar userData={user} logOutUser={logOutUser} />
       {user ? <h1>Welcome {user.id} && {user.username}</h1> : null}
-
       {/* {user ? null : <Navigate to='/login' />} */}
-
-
       {/* <Navigate to='/login' /> */}
-
-
-      <Outlet context={{ distributors: distributors, loginUser: loginUser }} />
+      <Outlet context={{ distributors: distributors, loginUser: loginUser, user: user, signupUser: signupUser }} />
 
     </div>)
 };

@@ -6,13 +6,18 @@
 from flask import request, make_response, session
 from flask_restful import Resource
 
+from flask_bcrypt import Bcrypt
+
 # Local imports
 from config import app, db, api
 # Add your model imports
 from models import Users_Customers, Users_Distributors, Customer_Products, Customer_Orders_Placed, Customers_Distributors, Distributor_Prices
 
 
+
 app.secret_key = b'\xea\xfb\xedQ\xf5-r/0g\x9d@^\xd4^l'
+
+bcrypt = Bcrypt(app)
 
 # Views go here!
 
@@ -54,10 +59,42 @@ class AllDistributors(Resource):
 
     def get(self):
 
-        distributors = Users_Distributors.query.all()
+        # 'customer_id' is what matches the session['------']
+        user = Users_Customers.query.filter(Users_Customers.id == session.get('customer_id')).first()
 
-        response_body = [distributor.to_dict() for distributor in distributors]
-        return make_response(response_body, 200)
+        if user and user.user_type == 'customer':
+            distributors = Users_Distributors.query.all()
+
+            response_body = [distributor.to_dict() for distributor in list(set(user.distributors))]
+            return make_response(response_body, 200)
+
+            # This is how we can filter to only show the users connected distributors__________________________
+            # user_distributors = [distributor.to_dict(only=('id', 'company_name')) for distributor in list(set(user.distributors))]
+        
+        # elif user and user.type != 'customer':
+        #     pass
+        else:
+            response_body = {
+                "error" : "You are not authorized to view the distributors for this customer"
+            }
+            return make_response(response_body, 401)
+
+
+    def post(self):
+        # 'customer_id' is what matches the session['------']
+        user = Users_Customers.query.filter(Users_Customers.id == session.get('customer_id')).first()
+
+
+        # You can make this show different things as well depending on the customer type. Look back at the lecture code_____
+        if user and user.user_type == 'customer':
+            try:
+                pass
+            except:
+                pass
+
+
+
+        
 
 
 api.add_resource(AllDistributors, '/distributors')
@@ -68,9 +105,10 @@ class Login(Resource):
 
     def post(self):
         username = request.json.get('username')
+        password = request.json.get('password')
         customer_user = Users_Customers.query.filter(Users_Customers.username == username).first()
 
-        if(customer_user):
+        if(customer_user and bcrypt.check_password_hash(customer_user.password_hash, password)):
             # Check the below line, this may be wrong and not called "customer_id"
             session['customer_id'] = customer_user.id
             response_body = customer_user.to_dict()
@@ -78,7 +116,7 @@ class Login(Resource):
             return make_response(response_body, 201)
         else:
             response_body = {
-                'error': 'Invalid Username'
+                'error': 'Invalid Username or Password'
             }
             return make_response(response_body, 401)
 
@@ -128,6 +166,34 @@ class Logout(Resource):
 
 api.add_resource(Logout, '/logout')
         
+
+
+
+class Signup_Customer(Resource):
+
+    def post(self):
+        try:
+            password = request.json.get('password')
+            pw_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+            new_customer = Users_Customers(company_name=request.json.get('company_name'), user_type='customer', first_name=request.json.get('first_name'), last_name=request.json.get('last_name'), username=request.json.get('username'), email=request.json.get('email'), password_hash=pw_hash)
+            db.session.add(new_customer)
+            db.session.commit()
+            session['customer_id'] = new_customer.id
+
+            response_body = new_customer.to_dict()
+
+            response_body['distributors'] = [distributor.to_dict() for distributor in list(set(new_customer.distributors))]
+
+            return make_response(response_body, 201)
+
+        except:
+            response_body = {
+                "error": "User's company name and email address must be filled in"
+            }
+            return make_response(response_body, 400)
+
+
+api.add_resource(Signup_Customer, '/signup')
         
 
 
