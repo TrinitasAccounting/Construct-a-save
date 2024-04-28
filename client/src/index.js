@@ -7,7 +7,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DistributorCards from "./components/CustomersDistributor";
 import CustomersDistributors from "./components/CustomersDistributor";
 import LoginForm from './components/LoginForm';
-import SignupForm from './components/SignupForm';
+import SignupFormCustomer from './components/SignupFormCustomer';
+import SignupFormDistributor from "./components/SignupFormDistributor";
 
 // import App from "./components/App";
 
@@ -27,8 +28,12 @@ const router = createBrowserRouter([
                 element: <LoginForm />
             },
             {
-                path: '/signup',
-                element: <SignupForm />
+                path: '/customers/signup',
+                element: <SignupFormCustomer />
+            },
+            {
+                path: '/distributors/signup',
+                element: <SignupFormDistributor />
             }
         ]
     }

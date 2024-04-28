@@ -74,8 +74,31 @@ function App() {
 
 
   // Signing Up a new user (Customer version)
-  function signupUser(signupData) {
-    fetch('/signup', {
+  function signupUserCustomer(signupData) {
+    fetch('/customers/signup', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(signupData)
+    })
+      .then(res => {
+        if (res.ok) {
+          res.json().then(userData => {
+            setUser(userData)
+            navigate('/')
+          })
+        }
+        else if (res.status === 400) {
+          res.json().then(errorData => alert('Did not work'))
+        }
+      })
+  }
+
+  // Signing Up a new user (distributor version)
+  function signupUserDistributor(signupData) {
+    fetch('/distributors/signup', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -124,7 +147,7 @@ function App() {
       {user ? <h1>Welcome {user.id} && {user.username}</h1> : null}
       {/* {user ? null : <Navigate to='/login' />} */}
       {/* <Navigate to='/login' /> */}
-      <Outlet context={{ distributors: distributors, loginUser: loginUser, user: user, signupUser: signupUser }} />
+      <Outlet context={{ distributors: distributors, loginUser: loginUser, user: user, signupUserCustomer: signupUserCustomer, signupUserDistributor: signupUserDistributor }} />
 
     </div>)
 };

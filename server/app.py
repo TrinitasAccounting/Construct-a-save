@@ -193,8 +193,35 @@ class Signup_Customer(Resource):
             return make_response(response_body, 400)
 
 
-api.add_resource(Signup_Customer, '/signup')
-        
+api.add_resource(Signup_Customer, '/customers/signup')
+
+
+
+class Signup_Distributor(Resource):
+
+    def post(self):
+        try:
+            password = request.json.get('password')
+            pw_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+            new_distributor = Users_Distributors(company_name=request.json.get('company_name'), user_type='distributor', first_name=request.json.get('first_name'), last_name=request.json.get('last_name'), username=request.json.get('username'), email=request.json.get('email'), password_hash=pw_hash)
+            db.session.add(new_distributor)
+            db.session.commit()
+            session['customer_id'] = new_distributor.id
+
+            response_body = new_distributor.to_dict()
+
+            response_body['customers'] = [customer.to_dict(only=('id','name')) for customer in list(set(new_distributor.customers))]
+
+            return make_response(response_body, 201)
+
+        except:
+            response_body = {
+                "error" : "User's company name and email address must be filled in"
+            }
+            return make_response(response_body, 400)
+
+
+api.add_resource(Signup_Distributor, '/distributors/signup')
 
 
 
