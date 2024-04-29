@@ -2,14 +2,14 @@
 import { useOutletContext, Link } from "react-router-dom";
 
 import DistributorCards from "./DistributorCards";
+import DropdownSelect from "./DropdownSelect";
 
 
 
 function CustomersDistributors() {
 
-    const { distributors, user } = useOutletContext();
+    const { distributors, user, allDistributors } = useOutletContext();
 
-    console.log(user);
 
     // console.log(distributors);
 
@@ -43,6 +43,7 @@ function CustomersDistributors() {
             {/* <ul>
                 {distributorsComponent}
             </ul> */}
+            <DropdownSelect allDistributors={allDistributors} />
             <DistributorCards distributors={distributors} />
             {/* <h1 className='text-4xl'>DistributorCards</h1> */}
         </div>

@@ -55,7 +55,30 @@ class AllCustomers(Resource):
 api.add_resource(AllCustomers, '/customers')
 
 
+
 class AllDistributors(Resource):
+
+    def get(self):
+
+        distributors = Users_Distributors.query.all()
+
+        response_body = [distributor.to_dict() for distributor in distributors]
+        return make_response(response_body, 200)
+
+
+api.add_resource(AllDistributors, '/distributors')
+
+
+
+
+
+
+
+
+
+
+
+class CustomersDistributors(Resource):
 
     def get(self):
 
@@ -97,7 +120,7 @@ class AllDistributors(Resource):
         
 
 
-api.add_resource(AllDistributors, '/distributors')
+api.add_resource(CustomersDistributors, '/customers/distributors')
 
 
 
@@ -107,6 +130,7 @@ class Login(Resource):
         username = request.json.get('username')
         password = request.json.get('password')
         customer_user = Users_Customers.query.filter(Users_Customers.username == username).first()
+        distributor_user = Users_Distributors.query.filter(Users_Distributors.username == username).first()
 
         if(customer_user and bcrypt.check_password_hash(customer_user.password_hash, password)):
             # Check the below line, this may be wrong and not called "customer_id"
@@ -114,6 +138,15 @@ class Login(Resource):
             response_body = customer_user.to_dict()
             response_body['distributors'] = [distributor.to_dict(only=('id', 'company_name')) for distributor in list(set(customer_user.distributors))]
             return make_response(response_body, 201)
+
+        # This must have a validation or constraint to make sure usernames in the customer and distributor tables do not match. Otherwise, we will have to create a separate route for the distributor login
+        elif(distributor_user and bcrypt.check_password_hash(distributor_user.password_hash, password)):
+            # Check the below line, this may be wrong and not called "customer_id"
+            session['distributor_id'] = distributor_user.id
+            response_body = distributor_user.to_dict()
+            response_body['customers'] = [customer.to_dict(only=('id', 'company_name')) for customer in list(set(distributor_user.customers))]
+            return make_response(response_body, 201)
+
         else:
             response_body = {
                 'error': 'Invalid Username or Password'
@@ -135,12 +168,21 @@ class CheckSession(Resource):
 
         # the line below might also need to be checked as it is connected to line 75___________________
         customer_user = db.session.get(Users_Customers, session.get('customer_id'))
+        distributor_user = db.session.get(Users_Distributors, session.get('distributor_id'))
 
         if(customer_user):
             response_body = customer_user.to_dict()
 
             # Check these serializations and lines to make sure they work properly once more data is in the seed.py
             response_body['distributors'] = [distributor.to_dict() for distributor in list(set(customer_user.distributors))]
+
+            return make_response(response_body, 200)
+
+        elif(distributor_user):
+            response_body = distributor_user.to_dict()
+
+            # Check these serializations and lines to make sure they work properly once more data is in the seed.py
+            response_body['customers'] = [customer.to_dict() for customer in list(set(distributor_user.customers))]
 
             return make_response(response_body, 200)
         else:
@@ -159,6 +201,9 @@ class Logout(Resource):
     def delete(self):
         if(session.get('customer_id')): 
             del(session['customer_id'])
+
+        elif(session.get('distributor_id')): 
+            del(session['distributor_id'])
         
         response_body = {}
         return make_response(response_body, 204)
@@ -206,7 +251,7 @@ class Signup_Distributor(Resource):
             new_distributor = Users_Distributors(company_name=request.json.get('company_name'), user_type='distributor', first_name=request.json.get('first_name'), last_name=request.json.get('last_name'), username=request.json.get('username'), email=request.json.get('email'), password_hash=pw_hash)
             db.session.add(new_distributor)
             db.session.commit()
-            session['customer_id'] = new_distributor.id
+            session['distributor_id'] = new_distributor.id
 
             response_body = new_distributor.to_dict()
 

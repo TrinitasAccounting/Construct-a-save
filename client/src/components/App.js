@@ -13,18 +13,33 @@ function App() {
 
   const [distributors, setDistributors] = useState([])
   const [user, setUser] = useState(null)
+  const [allDistributors, setAllDistributors] = useState([])
 
 
 
-  // Getting all of the distributors for all customers__________________
+
+  // Getting all of the distributors for all single customer__________________
   useEffect(() => {
-    fetch('/distributors')
+    fetch('/customers/distributors')
       .then(res => {
         if (res.ok) {
           res.json().then(data => setDistributors(data))
         }
       })
   }, [user])
+
+
+  useEffect(() => {
+    fetch('/distributors')
+      .then(res => {
+        if (res.ok) {
+          res.json().then(data => setAllDistributors(data))
+        }
+      })
+  }, [])
+
+
+
 
 
   // CheckSession useEffect to check for user on refreshes_______________
@@ -147,7 +162,7 @@ function App() {
       {user ? <h1>Welcome {user.id} && {user.username}</h1> : null}
       {/* {user ? null : <Navigate to='/login' />} */}
       {/* <Navigate to='/login' /> */}
-      <Outlet context={{ distributors: distributors, loginUser: loginUser, user: user, signupUserCustomer: signupUserCustomer, signupUserDistributor: signupUserDistributor }} />
+      <Outlet context={{ distributors: distributors, loginUser: loginUser, user: user, signupUserCustomer: signupUserCustomer, signupUserDistributor: signupUserDistributor, allDistributors: allDistributors }} />
 
     </div>)
 };
