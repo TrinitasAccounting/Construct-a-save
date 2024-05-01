@@ -18,6 +18,7 @@ function App() {
 
 
 
+
   // Getting all of the distributors for all single customer__________________
   useEffect(() => {
     fetch('/customers/distributors')
@@ -39,8 +40,24 @@ function App() {
   }, [])
 
 
+  // fetch request to get the products by customer id
+  // function productsByCustomerID(id) {
+  //   fetch(`/customers/products/${id}`)
+  //     .then(res => {
+  //       if (res.ok) {
+  //         res.json().then(data => setProducts(data))
+  //       }
+  //     })
+  // }
 
 
+
+
+
+
+
+
+  // All login fetch request below______________________________________________________________________________________________________
 
   // CheckSession useEffect to check for user on refreshes_______________
   useEffect(() => {
@@ -58,9 +75,6 @@ function App() {
       })
 
   }, [])
-
-
-
 
 
 
@@ -89,7 +103,7 @@ function App() {
 
 
   // Signing Up a new user (Customer version)
-  function signupUserCustomer(signupData) {
+  function signupUserCustomer(signupData, setFormData) {
     fetch('/customers/signup', {
       method: "POST",
       headers: {
@@ -106,7 +120,7 @@ function App() {
           })
         }
         else if (res.status === 400) {
-          res.json().then(errorData => alert('Did not work'))
+          res.json().then(errorData => alert(`Error: ${errorData.error}`))
         }
       })
   }

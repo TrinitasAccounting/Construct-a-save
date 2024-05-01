@@ -1,5 +1,6 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.orm import validates
 
 from config import db
 
@@ -24,6 +25,33 @@ class Users_Customers(db.Model, SerializerMixin):
 
     # Many to Many with Customers_Distributors
     distributors = db.relationship('Customers_Distributors', back_populates='customer')
+
+
+    serialize_rules = ('-products.customer','-products.orders')
+
+
+    @validates('first_name', 'last_name', 'company_name', 'username', 'password_hash', 'user_type', 'email')
+    def validate_columns(self, attr, value):
+        if (not isinstance(value, str)) or len(value) < 1:
+            raise ValueError(f"{attr} must be a string that is at least 2 characters long!")
+        return value
+
+    @validates('username')
+    def validate_columns(self, attr, value):
+        if (Users_Distributors.query.filter(Users_Distributors.username == value)):
+            raise ValueError(f"{attr} is already taken, please pick a new username")
+        return value
+
+    @validates('email')
+    def validate_email(self, key, address):
+        if '@' not in address:
+            raise ValueError("Email is not valid")
+        return address
+
+
+    __table_args__ = (db.CheckConstraint('(username != password_hash)'),)
+
+    
 
 
 
@@ -53,6 +81,29 @@ class Users_Distributors(db.Model, SerializerMixin):
 
 
 
+    @validates('first_name', 'last_name', 'company_name', 'username', 'password_hash', 'user_type', 'email')
+    def validate_columns(self, attr, value):
+        if (not isinstance(value, str)) or len(value) < 1:
+            raise ValueError(f"{attr} must be a string that is at least 2 characters long!")
+        return value
+
+    @validates('username')
+    def validate_columns(self, attr, value):
+        if (Users_Customers.query.filter(Users_Customers.username == value)):
+            raise ValueError(f"{attr} is already taken, please pick a new username")
+        return value
+
+    @validates('email')
+    def validate_email(self, key, address):
+        if '@' not in address:
+            raise ValueError("Email is not valid")
+        return address
+
+    __table_args__ = (db.CheckConstraint('(username != password_hash)'),)
+    # __table_args__ = (db.CheckConstraint('username != password_hash '),)
+
+
+
 
 class Customer_Products(db.Model, SerializerMixin):
     __tablename__ = 'customer_products'
@@ -71,6 +122,14 @@ class Customer_Products(db.Model, SerializerMixin):
 
 
 
+    @validates('product_name', 'manufacturer')
+    def validate_columns(self, attr, value):
+        if (not isinstance(value, str)) or len(value) < 1:
+            raise ValueError(f"{attr} must be a string that is at least 2 characters long!")
+        return value
+
+
+
 
 
 class Distributor_Prices(db.Model, SerializerMixin):
@@ -85,6 +144,14 @@ class Distributor_Prices(db.Model, SerializerMixin):
     # 1 to many with Users_Distributors
     distributor_id = db.Column(db.Integer, db.ForeignKey('users_distributors.id'))
     distributor = db.relationship('Users_Distributors', back_populates='distributor_prices')
+
+
+    @validates('product_id', 'price')
+    def validate_columns(self, attr, value):
+        if (not isinstance(value, (int, float))):
+            raise ValueError(f"{attr} must be a number")
+        return value
+
 
 
 
@@ -123,6 +190,19 @@ class Customer_Orders_Placed(db.Model, SerializerMixin):
     #  1 to many with Customer_Products
     product_id = db.Column(db.Integer, db.ForeignKey('customer_products.id'))
     product = db.relationship('Customer_Products', back_populates='orders')
+
+
+    @validates('qty_ordered')
+    def validate_columns(self, attr, value):
+        if (not isinstance(value, (int, float))):
+            raise ValueError(f"{attr} must be a number")
+        return value
+
+    @validates('customer_product_name')
+    def validate_columns(self, attr, value):
+        if (not isinstance(value, str)) or len(value) < 1:
+            raise ValueError(f"{attr} must be a string that is at least 2 characters long!")
+        return value
 
 
 

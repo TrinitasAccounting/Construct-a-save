@@ -62,7 +62,7 @@ export default function NavBar({ userData, logOutUser }) {
         { name: 'Home', href: '/customers', current: true },
         { name: 'New Order', href: '/customers', current: true },
         { name: "My Distributor's", href: '/mydistributors', current: false },
-        { name: "My Product's", href: '#', current: false },
+        { name: "My Product's", href: '/customers/products', current: false },
         { name: 'About Us', href: '#', current: false },
         // { name: 'Login', href: '/login', current: false },
         { name: 'Log Out', href: '/login', current: 'logout' },

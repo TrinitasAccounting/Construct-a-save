@@ -70,6 +70,28 @@ api.add_resource(AllDistributors, '/distributors')
 
 
 
+class CustomersProductsByID(Resource):
+
+    def get(self, id):
+
+        customer = Users_Customers.query.filter(Users_Customers.id == id).first()
+
+        if customer:
+            response_body = customer.to_dict()
+            return make_response(response_body, 200)
+
+        else:
+            response_body = {
+                "error": "Customer not found"
+            }
+            return make_response(response_body, 404)
+
+
+
+api.add_resource(CustomersProductsByID, '/customers/products/<int:id>')
+
+
+
 
 
 
@@ -231,9 +253,16 @@ class Signup_Customer(Resource):
 
             return make_response(response_body, 201)
 
-        except:
+        # except:
+        #     response_body = {
+        #         "error": "User's company name and email address must be filled in"
+        #     }
+        #     return make_response(response_body, 400)
+
+        except ValueError as value_error:
+            value_error_string = str(value_error)
             response_body = {
-                "error": "User's company name and email address must be filled in"
+                "error": value_error_string
             }
             return make_response(response_body, 400)
 
@@ -259,9 +288,16 @@ class Signup_Distributor(Resource):
 
             return make_response(response_body, 201)
 
-        except:
+        # except:
+        #     response_body = {
+        #         "error" : "User's company name and email address must be filled in"
+        #     }
+        #     return make_response(response_body, 400)
+
+        except ValueError as value_error:
+            value_error_string = str(value_error)
             response_body = {
-                "error" : "User's company name and email address must be filled in"
+                "error": value_error_string
             }
             return make_response(response_body, 400)
 

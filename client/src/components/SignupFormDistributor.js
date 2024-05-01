@@ -43,6 +43,14 @@ function SignupFormDistributor() {
         event.preventDefault()
 
         signupUserDistributor(formData)
+        // setFormData({
+        //     company_name: "",
+        //     username: "",
+        //     password: "",
+        //     first_name: "",
+        //     last_name: "",
+        //     email: ""
+        // })
 
 
     }
