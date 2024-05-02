@@ -4,11 +4,12 @@ import { useOutletContext, useNavigate } from "react-router-dom";
 
 import Product from './Product';
 import EditProduct from './EditProduct';
+import NewProductSlideOver from './NewProductSlideOver';
 
 
 function ProductList() {
 
-    const { products, onUpdateProduct, user } = useOutletContext();
+    const { products, onUpdateProduct, user, slideOpen, onShowNewProduct, deleteProduct } = useOutletContext();
 
     // console.log(user.id);
 
@@ -38,7 +39,10 @@ function ProductList() {
         customersProducts = []
     }
 
-    console.log(customersProducts);
+
+    function stopEditingAfterDelete() {
+        setIsEditing(false)
+    }
 
 
 
@@ -83,35 +87,42 @@ function ProductList() {
         <>
             {isEditing ? (
                 <div>
-                    <EditProduct editForm={editForm} handleChange={handleChange} handleProductUpdate={handleProductUpdate} />
+                    <EditProduct stopEditingAfterDelete={stopEditingAfterDelete} deleteProduct={deleteProduct} editForm={editForm} handleChange={handleChange} handleProductUpdate={handleProductUpdate} />
                 </div>
             ) :
+                <div>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Customer ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Modify Customer</th>
-                        </tr>
-                    </thead>
-                    <tbody>
 
-                        {customersProducts.map(product =>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Customer ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Modify Customer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                            <Product
-                                key={product.id}
-                                product={product}
-                                captureEdit={captureEdit}
-                                changeEditState={changeEditState}
-                            />
-                        )}
+                            {customersProducts.map(product =>
 
-                    </tbody>
-                </table>
+                                <Product
+                                    key={product.id}
+                                    product={product}
+                                    captureEdit={captureEdit}
+                                    changeEditState={changeEditState}
+                                />
+                            )}
 
+                        </tbody>
+                    </table>
+                    <NewProductSlideOver onShowNewProduct={onShowNewProduct} slideOpen={slideOpen} />
+
+
+
+
+                </div>
 
 
 

@@ -2,8 +2,10 @@
 
 import React from 'react'
 
-function EditProduct({ editForm, handleProductUpdate, handleChange }) {
+function EditProduct({ editForm, handleProductUpdate, handleChange, deleteProduct, stopEditingAfterDelete }) {
     let { id, product_name, manufacturer, customer_id, orders } = editForm
+
+
 
 
     function handleEditForm(event) {
@@ -20,6 +22,15 @@ function EditProduct({ editForm, handleProductUpdate, handleChange }) {
     }
 
 
+    function handleDeleteButtonClick() {
+
+        // console.log(editForm.id)
+        deleteProduct(editForm.id)
+        stopEditingAfterDelete()
+
+    }
+
+
 
 
 
@@ -33,6 +44,7 @@ function EditProduct({ editForm, handleProductUpdate, handleChange }) {
                 <input type='text' name='manufacturer' value={manufacturer} onChange={handleChange} />
                 {/* <input type='text' name='product_name' value={product_name} onChange={handleChange} /> */}
                 <button type="submit">Submit Changes</button>
+                <button onClick={handleDeleteButtonClick}>Delete</button>
 
             </form>
 

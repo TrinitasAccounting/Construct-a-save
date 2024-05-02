@@ -79,6 +79,34 @@ class AllProducts(Resource):
         response_body = [product.to_dict() for product in products]
         return make_response(response_body, 200)
 
+    
+    def post(self):
+        # user_is_a_customer = Users_Customers.query.filter(Users_Customers.id == session.get(''))
+        customer_user = db.session.get(Users_Customers, session.get('customer_id'))
+        distributor_user = db.session.get(Users_Distributors, session.get('distributor_id'))
+
+        if (customer_user or distributor_user):
+            try:
+                new_product = Customer_Products(product_name=request.json.get('product_name'), manufacturer=request.json.get('manufacturer'), customer_id=customer_user.id)
+                db.session.add(new_product)
+                db.session.commit()
+                response_body = new_product.to_dict()
+                return make_response(response_body, 201)
+
+            except:
+                response_body = {
+                    "error": "Product must have a name and a manufacturer"
+                }
+                return make_response(response_body, 400)
+
+        else:
+            response_body = {
+                "error": "You are not authorized to add a new product"
+            }
+            return make_response(response_body, 401)
+
+
+
 
 api.add_resource(AllProducts, '/customers/products')
 
@@ -89,6 +117,8 @@ api.add_resource(AllProducts, '/customers/products')
 
 class ProductsByID(Resource):
 
+
+    # This is incorrect, it is fetching by customer id instead of by product id___________________________
     def get(self, id):
 
         customer = Users_Customers.query.filter(Users_Customers.id == id).first()
@@ -127,6 +157,25 @@ class ProductsByID(Resource):
                 'error': "Product Not Found"
             }
             return make_response(response_body, 404)
+
+
+
+    def delete(self,id):
+        # product = Customer_Products.query.filter(Customer_Products.id == id)
+        product = db.session.get(Customer_Products, id)
+
+        if product:
+            db.session.delete(product)
+            db.session.commit()
+            response_body = {}
+            return make_response(response_body, 204)
+
+        else: 
+            response_body = {
+                'error': "Product Not Found"
+            }
+            return make_response(response_body, 404)
+
 
 
 

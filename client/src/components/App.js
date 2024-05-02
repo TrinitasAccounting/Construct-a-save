@@ -15,6 +15,7 @@ function App() {
   const [user, setUser] = useState(null)
   const [allDistributors, setAllDistributors] = useState([])
   // const [customersProducts, setCustomersProducts] = useState([])
+  const [slideOpen, setSlideOpen] = useState(false)
 
 
 
@@ -84,6 +85,60 @@ function App() {
   }
 
 
+
+  // New Product Slide open and hide function
+  function onShowNewProduct() {
+    setSlideOpen(slideOpen => !slideOpen)
+  }
+
+
+
+  // Add a new product on their My Products page (POST)
+  function addNewProduct(newProduct) {
+    fetch('/customers/products', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(newProduct)
+    })
+      .then(res => {
+        if (res.ok) {
+          res.json().then(newProductData => {
+            setProducts([...products, newProductData])
+
+          })
+        }
+        else if (res.status === 400) {
+          res.json().then(errorData => alert(`Error: ${errorData.error}`))
+        }
+        else if (res.status === 401) {
+          res.json().then(errorData => alert(`Error: ${errorData.error}`))
+        }
+        else {
+          res.json().then(() => alert("Error: Something went wrong"))
+        }
+      })
+  }
+
+
+  // Deleting a product from the My Products Page
+  function deleteProduct(id) {
+    fetch(`/customers/products/${id}`, {
+      method: "DELETE"
+    })
+      .then(res => {
+        if (res.ok) {
+          setProducts(products => products.filter(product => {
+            return product.id !== id
+          }))
+        }
+        else if (res.status === 404) {
+          res.json().then(errorData => alert(`Error: ${errorData.error}`))
+        }
+      })
+  }
 
 
 
@@ -260,7 +315,20 @@ function App() {
       {user ? <h1 className='text-10'>Welcome {user.username}</h1> : null}
       {/* {user ? null : <Navigate to='/login' />} */}
       {/* <Navigate to='/login' /> */}
-      <Outlet context={{ products: products, onUpdateProduct: onUpdateProduct, distributors: distributors, loginUser: loginUser, user: user, signupUserCustomer: signupUserCustomer, signupUserDistributor: signupUserDistributor, allDistributors: allDistributors }} />
+      <Outlet context={{
+        products: products,
+        addNewProduct: addNewProduct,
+        deleteProduct: deleteProduct,
+        onUpdateProduct: onUpdateProduct,
+        distributors: distributors,
+        loginUser: loginUser,
+        user: user,
+        signupUserCustomer: signupUserCustomer,
+        signupUserDistributor: signupUserDistributor,
+        allDistributors: allDistributors,
+        slideOpen: slideOpen,
+        onShowNewProduct: onShowNewProduct
+      }} />
 
     </div>)
 };
