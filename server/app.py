@@ -70,7 +70,24 @@ api.add_resource(AllDistributors, '/distributors')
 
 
 
-class CustomersProductsByID(Resource):
+class AllProducts(Resource):
+
+    def get(self):
+
+        products = Customer_Products.query.all()
+
+        response_body = [product.to_dict() for product in products]
+        return make_response(response_body, 200)
+
+
+api.add_resource(AllProducts, '/customers/products')
+
+
+
+
+
+
+class ProductsByID(Resource):
 
     def get(self, id):
 
@@ -86,9 +103,34 @@ class CustomersProductsByID(Resource):
             }
             return make_response(response_body, 404)
 
+    
+    def patch(self, id):
+        product = db.session.get(Customer_Products, id)
+
+        if product:
+            try:
+                for attr in request.json:
+                    setattr(product, attr, request.json[attr])
+
+                db.session.commit()
+                response_body = product.to_dict()
+                return make_response(response_body, 200)
+
+            except:
+                response_body = {
+                    "error": "Product must have a name and a manufacturer"
+                }
+                return make_response(response_body, 400)
+
+        else:
+            response_body = {
+                'error': "Product Not Found"
+            }
+            return make_response(response_body, 404)
 
 
-api.add_resource(CustomersProductsByID, '/customers/products/<int:id>')
+
+api.add_resource(ProductsByID, '/customers/products/<int:id>')
 
 
 

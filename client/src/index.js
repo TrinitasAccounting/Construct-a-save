@@ -9,7 +9,8 @@ import CustomersDistributors from "./components/CustomersDistributor";
 import LoginForm from './components/LoginForm';
 import SignupFormCustomer from './components/SignupFormCustomer';
 import SignupFormDistributor from "./components/SignupFormDistributor";
-import CustomerProducts from './components/CustomerProducts';
+// import CustomerProducts from './components/CustomerProducts';
+import ProductList from "./components/ProductsList";
 
 // import App from "./components/App";
 
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/customers/products',
-                element: <CustomerProducts />
+                element: <ProductList />
             },
 
         ]

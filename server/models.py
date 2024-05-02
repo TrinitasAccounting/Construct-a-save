@@ -121,6 +121,9 @@ class Customer_Products(db.Model, SerializerMixin):
     orders = db.relationship('Customer_Orders_Placed', back_populates='product')
 
 
+    serialize_rules = ('-customer','-orders.products')
+
+
 
     @validates('product_name', 'manufacturer')
     def validate_columns(self, attr, value):

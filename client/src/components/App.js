@@ -14,6 +14,90 @@ function App() {
   const [distributors, setDistributors] = useState([])
   const [user, setUser] = useState(null)
   const [allDistributors, setAllDistributors] = useState([])
+  // const [customersProducts, setCustomersProducts] = useState([])
+
+
+
+  // Trying to build out the pop up for customers products
+  const [products, setProducts] = useState([]);
+
+
+  //   useEffect(() => {
+  //     fetch(`/customers/products/${user.id}`)
+  //       .then(res => {
+  //         if (res.ok) {
+  //           res.json().then(productData => {
+  //             setProducts(productData)
+  //           })
+  //         }
+  //         else if (res.status == 404) {
+  //           res.json().then(errorData => alert(`Error: ${errorData.error}`))
+  //         }
+  //         else {
+  //           res.json().then(() => alert("Error: Something went wrong"))
+  //         }
+  //       })
+  //   }, [])
+  // }
+
+
+  useEffect(() => {
+    fetch('/customers/products')
+      .then(res => {
+        if (res.ok) {
+          res.json().then(data => setProducts(data))
+        }
+      })
+  }, [user])
+
+
+
+  // let productsArray = []
+
+  // if (user) {
+  //   productsArray = products.map((product) => {
+  //     if (product.customer_id === user.id) {
+  //       return product
+  //     }
+  //   })
+  //   setCustomersProducts(customersProducts => productsArray)
+  // }
+  // // else {
+  // //   customers_products = []
+  // // }
+
+
+  // console.log(customersProducts);
+
+
+
+  //  Also make sure that we pass this down as an outlet context_______________
+  function onUpdateProduct(updatedProduct) {
+    const updatedProducts = products.map(
+      product => {
+        if (product.id === updatedProduct.id) {
+          return updatedProduct
+        } else { return product }
+      }
+    )
+    setProducts(updatedProducts)
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -173,10 +257,10 @@ function App() {
   return (
     <div>
       <NavBar userData={user} logOutUser={logOutUser} />
-      {user ? <h1>Welcome {user.id} && {user.username}</h1> : null}
+      {user ? <h1 className='text-10'>Welcome {user.username}</h1> : null}
       {/* {user ? null : <Navigate to='/login' />} */}
       {/* <Navigate to='/login' /> */}
-      <Outlet context={{ distributors: distributors, loginUser: loginUser, user: user, signupUserCustomer: signupUserCustomer, signupUserDistributor: signupUserDistributor, allDistributors: allDistributors }} />
+      <Outlet context={{ products: products, onUpdateProduct: onUpdateProduct, distributors: distributors, loginUser: loginUser, user: user, signupUserCustomer: signupUserCustomer, signupUserDistributor: signupUserDistributor, allDistributors: allDistributors }} />
 
     </div>)
 };
