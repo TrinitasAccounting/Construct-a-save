@@ -40,11 +40,11 @@ function LoginForm() {
 
     return (
         <div className='pl-4'>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <input onChange={updateFormData} type="text" name="username" placeholder="Username" value={formData.username} required />
-                <input onChange={updateFormData} type="password" name="password" placeholder="Password" value={formData.password} required />
-                <button type="submit" className='rounded bg-indigo-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>Login</button>
+            <h1>Login</h1>
+            <form className='p-1 m-5' onSubmit={handleSubmit}>
+                <input className='p-1 m-5' onChange={updateFormData} type="text" name="username" placeholder="Username" value={formData.username} required />
+                <input className='p-1 m-5' onChange={updateFormData} type="password" name="password" placeholder="Password" value={formData.password} required />
+                <button type="submit" className='p-1 m-5 rounded bg-indigo-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>Login</button>
             </form>
 
         </div>

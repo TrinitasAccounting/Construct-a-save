@@ -66,6 +66,7 @@ export default function NewProductSlideOver({ slideOpen, onShowNewProduct }) {
             product_name: "",
             manufacturer: ""
         })
+        onShowNewProduct()
     }
 
 
@@ -77,9 +78,17 @@ export default function NewProductSlideOver({ slideOpen, onShowNewProduct }) {
 
     return (
         <>
-            <button onClick={onShowNewProduct}>
-                + New Product
-            </button>
+            <div className='m-4 grid gap-4 sm:grid-cols-12'>
+                <div className='min-h-[25px] col-span-11'></div>
+                <div className='min-h-[25px] '>
+                    <button onClick={onShowNewProduct}
+                        type="button"
+                        className="relative inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        + New Product
+                    </button>
+                </div>
+            </div>
+
             <Transition.Root show={slideOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={setOpen}>
                     <div className="fixed inset-0" />

@@ -19,6 +19,7 @@ function EditProduct({ editForm, handleProductUpdate, handleChange, deleteProduc
         })
             .then(res => res.json())
             .then(updatedProduct => handleProductUpdate(updatedProduct))
+
     }
 
 
@@ -38,17 +39,17 @@ function EditProduct({ editForm, handleProductUpdate, handleChange, deleteProduc
 
     return (
         <div>
-            <h4>Edit Product</h4>
+            <h2>Edit Product {product_name}:</h2>
             <form onSubmit={handleEditForm}>
-                <input type='text' name='product_name' value={product_name} onChange={handleChange} />
-                <input type='text' name='manufacturer' value={manufacturer} onChange={handleChange} />
+                <input className='p-1 m-5' type='text' name='product_name' value={product_name} onChange={handleChange} />
+                <input className='p-1 m-5' type='text' name='manufacturer' value={manufacturer} onChange={handleChange} />
                 {/* <input type='text' name='product_name' value={product_name} onChange={handleChange} /> */}
-                <button type="submit">Submit Changes</button>
-                <button onClick={handleDeleteButtonClick}>Delete</button>
+                <button className='p-1 m-5 h-[30px] bg-slate-700 w-40 roundedpx-2 py-1 text-base font-semibold text-white shadow-sm hover:bg-blue-700' type="submit">Submit Changes</button>
+                <button className='p-1 m-5 h-[30px] bg-red-600 w-40 roundedpx-2 py-1 text-base font-semibold text-white shadow-sm hover:bg-red-900' onClick={handleDeleteButtonClick}>Delete</button>
 
             </form>
 
-        </div>
+        </div >
     )
 }
 

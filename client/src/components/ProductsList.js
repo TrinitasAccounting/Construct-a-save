@@ -2,6 +2,10 @@
 import React, { useState } from 'react'
 import { useOutletContext, useNavigate } from "react-router-dom";
 
+import { Dialog, Transition } from '@headlessui/react'
+import { XMarkIcon } from '@heroicons/react/24/outline'
+import { LinkIcon, PlusIcon, QuestionMarkCircleIcon } from '@heroicons/react/20/solid'
+
 import Product from './Product';
 import EditProduct from './EditProduct';
 import NewProductSlideOver from './NewProductSlideOver';
@@ -86,38 +90,48 @@ function ProductList() {
     return (
         <>
             {isEditing ? (
-                <div>
-                    <EditProduct stopEditingAfterDelete={stopEditingAfterDelete} deleteProduct={deleteProduct} editForm={editForm} handleChange={handleChange} handleProductUpdate={handleProductUpdate} />
+                <div className='m-4 grid gap-4 sm:grid-cols-12'>
+
+                    <div className='min-h-[30px] shadown col-span-7'>
+                        <EditProduct stopEditingAfterDelete={stopEditingAfterDelete} deleteProduct={deleteProduct} editForm={editForm} handleChange={handleChange} handleProductUpdate={handleProductUpdate} />
+                    </div>
+
                 </div>
             ) :
                 <div>
 
-
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Customer ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Modify Customer</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            {customersProducts.map(product =>
-
-                                <Product
-                                    key={product.id}
-                                    product={product}
-                                    captureEdit={captureEdit}
-                                    changeEditState={changeEditState}
-                                />
-                            )}
-
-                        </tbody>
-                    </table>
                     <NewProductSlideOver onShowNewProduct={onShowNewProduct} slideOpen={slideOpen} />
+
+                    <div className='m-4 grid gap-4 grid-cols-12'>
+
+                        <div className='col-span-11'>
+
+                            <table className='min-w-full divide-y divide-gray-300'>
+                                <thead >
+                                    <tr >
+                                        <th>Product ID</th>
+                                        <th>Product Name</th>
+                                        <th>Manufacturer</th>
+                                        <th>Edit Product</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-300 bg-gray-100">
+
+                                    {customersProducts.map(product =>
+
+                                        <Product
+                                            className='text-center'
+                                            key={product.id}
+                                            product={product}
+                                            captureEdit={captureEdit}
+                                            changeEditState={changeEditState}
+                                        />
+                                    )}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
 
 
