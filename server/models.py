@@ -171,9 +171,16 @@ class Customers_Distributors(db.Model, SerializerMixin):
     distributor_id = db.Column(db.Integer, db.ForeignKey('users_distributors.id'))
 
 
-# _________Missing Relationships
+# _________
     customer = db.relationship('Users_Customers', back_populates='distributors')
     distributor = db.relationship('Users_Distributors', back_populates='customers')
+
+
+
+    serialize_rules = ('-customer.distributors','-distributor.customers')
+
+
+
 
 
 

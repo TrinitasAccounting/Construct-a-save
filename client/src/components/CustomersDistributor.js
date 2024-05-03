@@ -3,12 +3,17 @@ import { useOutletContext, Link } from "react-router-dom";
 
 import DistributorCards from "./DistributorCards";
 import DropdownSelect from "./DropdownSelect";
+import { useState } from "react";
+
+import NewDistributorSlideOver from "./NewDistributorSlideOver";
 
 
 
 function CustomersDistributors() {
 
     const { distributors, user, allDistributors } = useOutletContext();
+
+    const [distributorSlide, setDistributorSlide] = useState(false);
 
 
     // console.log(distributors);
@@ -36,6 +41,12 @@ function CustomersDistributors() {
     //     }
     // }
 
+    function openCloseDistributorSlide() {
+        return (
+            setDistributorSlide(distributorSlide => !distributorSlide)
+        )
+    }
+
 
 
     return (
@@ -43,6 +54,19 @@ function CustomersDistributors() {
             {/* <ul>
                 {distributorsComponent}
             </ul> */}
+            <div className='m-4 grid gap-4 grid-cols-12'>
+                <div className='col-span-11'></div>
+                <div >
+                    {/* <button
+                        onClick={openCloseDistributorSlide}
+                        type="button"
+                        className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    >
+                        + Add New Distributor
+                    </button> */}
+                </div>
+            </div>
+            <NewDistributorSlideOver distributorSlide={distributorSlide} openCloseDistributorSlide={openCloseDistributorSlide} allDistributors={allDistributors} />
             <DropdownSelect allDistributors={allDistributors} />
             <DistributorCards distributors={distributors} />
             {/* <h1 className='text-4xl'>DistributorCards</h1> */}

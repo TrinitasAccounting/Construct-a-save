@@ -230,10 +230,83 @@ class CustomersDistributors(Resource):
 
 
 
-        
-
 
 api.add_resource(CustomersDistributors, '/customers/distributors')
+
+
+
+
+# class CustomerInviteToANewDistributor(Resource):
+
+
+    # def get(self):
+
+    #     # 'customer_id' is what matches the session['------']
+    #     # user = Users_Customers.query.filter(Users_Customers.id == session.get('customer_id')).first()
+    #     customer_user = db.session.get(Users_Customers, session.get('customer_id'))
+
+    #     if customer_user.user_type == 'customer':
+    #         distributors = Customers_Distributors.query.filter(Customers_Distributors.customer_id == customer_user.id).all()
+
+    #         response_body = [distributor.to_dict(rules=('-customer.distributors', '-distributor.customers')) for distributor in list(set(distributors))]
+    #         return make_response(response_body, 200)
+
+    #         # This is how we can filter to only show the users connected distributors__________________________
+    #         # user_distributors = [distributor.to_dict(only=('id', 'company_name')) for distributor in list(set(user.distributors))]
+        
+    #     # elif user and user.type != 'customer':
+    #     #     pass
+    #     else:
+    #         response_body = {
+    #             "error" : "You are not authorized to view the distributors for this customer"
+    #         }
+    #         return make_response(response_body, 401)
+
+
+
+
+
+
+    # def post(self):
+    #     # user_is_a_customer = Users_Customers.query.filter(Users_Customers.id == session.get(''))
+    #     customer_user = db.session.get(Users_Customers, session.get('customer_id'))
+    #     # distributor_user = db.session.get(Users_Distributors, session.get('distributor_id'))
+
+    #     if (customer_user):
+    #         try:
+    #             new_customer_distributor = Customers_Distributors(distributor_name=request.json.get('distributor_name'), customer_id=customer_user.id, distributor_id=request.json.get('distributor_id'))
+    #             db.session.add(new_customer_distributor)
+    #             db.session.commit()
+    #             response_body = new_customer_distributor.to_dict(rules=('-customer.distributors', '-distributor.customers'))
+    #             return make_response(response_body, 201)
+
+    #         except:
+    #             response_body = {
+    #                 "error": "Did not select a valid Distributor"
+    #             }
+    #             return make_response(response_body, 400)
+
+    #     else:
+    #         response_body = {
+    #             "error": "You are not authorized to add a new distributor"
+    #         }
+    #         return make_response(response_body, 401)
+
+
+# api.add_resource(CustomerInviteToANewDistributor, '/customers/distributors/addrelationship')
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

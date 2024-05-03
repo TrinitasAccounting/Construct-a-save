@@ -19,7 +19,7 @@ if __name__ == '__main__':
         # Delete data from the tables first
         # Users_Customers.query.delete()
         # Users_Distributors.query.delete()
-        Customer_Products.query.delete()
+        # Customer_Products.query.delete()
         Customer_Orders_Placed.query.delete()
         Customers_Distributors.query.delete()
         Distributor_Prices.query.delete()
@@ -54,19 +54,24 @@ if __name__ == '__main__':
         # db.session.add_all([distributor1,distributor2])
 
 
-        db.session.commit()
+        # db.session.commit()
 
 
-        product1 = Customer_Products(product_name='2x4 Plywood', manufacturer='ABS Lumber', customer_id=1)
-        product5 = Customer_Products(product_name='Stone Brick', manufacturer='Brick Warehouse', customer_id=1)
-        product2 = Customer_Products(product_name='2x6 Plywood', manufacturer='ABS Lumber', customer_id=1)
-        product3 = Customer_Products(product_name='2x10 Plywood', manufacturer='ABS Lumber', customer_id=1)
-        product4 = Customer_Products(product_name='4x10 Plywood', manufacturer='Home Depot', customer_id=1)
-        product6 = Customer_Products(product_name='Stone Brick', manufacturer='Brick Warehouse', customer_id=2)
-        product7 = Customer_Products(product_name='2x10 Plywood', manufacturer='ABS Lumber', customer_id=2)
+        # product1 = Customer_Products(product_name='2x4 Plywood', manufacturer='ABS Lumber', customer_id=1)
+        # product5 = Customer_Products(product_name='Stone Brick', manufacturer='Brick Warehouse', customer_id=1)
+        # product2 = Customer_Products(product_name='2x6 Plywood', manufacturer='ABS Lumber', customer_id=1)
+        # product3 = Customer_Products(product_name='2x10 Plywood', manufacturer='ABS Lumber', customer_id=1)
+        # product4 = Customer_Products(product_name='4x10 Plywood', manufacturer='Home Depot', customer_id=1)
+        # product6 = Customer_Products(product_name='Stone Brick', manufacturer='Brick Warehouse', customer_id=2)
+        # product7 = Customer_Products(product_name='2x10 Plywood', manufacturer='ABS Lumber', customer_id=2)
 
-        db.session.add_all([product1, product2, product3, product4, product5, product6, product7])
-        db.session.commit()
+        # db.session.add_all([product1, product2, product3, product4, product5, product6, product7])
+        # db.session.commit()
+
+
+        # customer_distributor1 = Customers_Distributors(distributor_name='Lumber Supplier', customer_id=1, distributor_id=3)
+        # db.session.add_all([customer_distributor1])
+        # db.session.commit()
 
         
 

@@ -16,6 +16,7 @@ function App() {
   const [allDistributors, setAllDistributors] = useState([])
   // const [customersProducts, setCustomersProducts] = useState([])
   const [slideOpen, setSlideOpen] = useState(false)
+  const [customersDistributorRelationships, setCustomersDistributorRelationships] = useState([]);
 
 
 
@@ -188,6 +189,74 @@ function App() {
   //       }
   //     })
   // }
+
+
+
+
+
+
+  // Getting all of the distributors for all single customer__________________I beleive the correct version
+  // useEffect(() => {
+  //   fetch('/customers/distributors/addrelationship')
+  //     .then(res => {
+  //       if (res.ok) {
+  //         res.json().then(data => setCustomersDistributorRelationships(data))
+  //       }
+  //     })
+  // }, [user])
+
+  // console.log(customersDistributorRelationships);
+
+
+
+
+
+  // Add a new customer distributor relationship from the my distributors page (POST)
+  // function addNewDistributor(newDistributor) {
+  //   fetch('/customers/distributors/addrelationship', {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Accept": "application/json"
+  //     },
+  //     body: JSON.stringify(newDistributor)
+  //   })
+  //     .then(res => {
+  //       if (res.ok) {
+  //         res.json().then(newDistributorData => {
+  //           setCustomersDistributorRelationships([...customersDistributorRelationships, newDistributorData])
+
+  //         })
+  //       }
+  //       else if (res.status === 400) {
+  //         res.json().then(errorData => alert(`Error: ${errorData.error}`))
+  //       }
+  //       else if (res.status === 401) {
+  //         res.json().then(errorData => alert(`Error: ${errorData.error}`))
+  //       }
+  //       else {
+  //         res.json().then(() => alert("Error: Something went wrong"))
+  //       }
+  //     })
+  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
