@@ -73,6 +73,16 @@ if __name__ == '__main__':
         # db.session.add_all([customer_distributor1])
         # db.session.commit()
 
+
+
+        # Users_Customers.query.filter(Users_Customers.id == 8).delete()
+        # Users_Customers.query.filter(Users_Customers.id == 9).delete()
+        # Users_Customers.query.filter(Users_Customers.id == 10).delete()
+        # Users_Customers.query.filter(Users_Customers.id == 11).delete()
+        # Users_Customers.query.filter(Users_Customers.id == 12).delete()
+        # Users_Customers.query.filter(Users_Customers.id == 13).delete()
+        # db.session.commit()
+
         
 
 

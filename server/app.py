@@ -239,28 +239,28 @@ api.add_resource(CustomersDistributors, '/customers/distributors')
 # class CustomerInviteToANewDistributor(Resource):
 
 
-    # def get(self):
+#     def get(self):
 
-    #     # 'customer_id' is what matches the session['------']
-    #     # user = Users_Customers.query.filter(Users_Customers.id == session.get('customer_id')).first()
-    #     customer_user = db.session.get(Users_Customers, session.get('customer_id'))
+#         # 'customer_id' is what matches the session['------']
+#         # user = Users_Customers.query.filter(Users_Customers.id == session.get('customer_id')).first()
+#         customer_user = db.session.get(Users_Customers, session.get('customer_id'))
 
-    #     if customer_user.user_type == 'customer':
-    #         distributors = Customers_Distributors.query.filter(Customers_Distributors.customer_id == customer_user.id).all()
+#         if customer_user.user_type == 'customer':
+#             distributors = Customers_Distributors.query.filter(Customers_Distributors.customer_id == customer_user.id).all()
 
-    #         response_body = [distributor.to_dict(rules=('-customer.distributors', '-distributor.customers')) for distributor in list(set(distributors))]
-    #         return make_response(response_body, 200)
+#             response_body = [distributor.to_dict(rules=('-customer.distributors', '-distributor.customers')) for distributor in list(set(distributors))]
+#             return make_response(response_body, 200)
 
-    #         # This is how we can filter to only show the users connected distributors__________________________
-    #         # user_distributors = [distributor.to_dict(only=('id', 'company_name')) for distributor in list(set(user.distributors))]
+#             # This is how we can filter to only show the users connected distributors__________________________
+#             # user_distributors = [distributor.to_dict(only=('id', 'company_name')) for distributor in list(set(user.distributors))]
         
-    #     # elif user and user.type != 'customer':
-    #     #     pass
-    #     else:
-    #         response_body = {
-    #             "error" : "You are not authorized to view the distributors for this customer"
-    #         }
-    #         return make_response(response_body, 401)
+#         # elif user and user.type != 'customer':
+#         #     pass
+#         else:
+#             response_body = {
+#                 "error" : "You are not authorized to view the distributors for this customer"
+#             }
+#             return make_response(response_body, 401)
 
 
 

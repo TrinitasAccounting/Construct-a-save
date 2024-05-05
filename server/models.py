@@ -30,15 +30,18 @@ class Users_Customers(db.Model, SerializerMixin):
     serialize_rules = ('-products.customer','-products.orders')
 
 
-    @validates('first_name', 'last_name', 'company_name', 'username', 'password_hash', 'user_type', 'email')
+    @validates('first_name', 'last_name', 'company_name', 'password_hash', 'user_type')
     def validate_columns(self, attr, value):
         if (not isinstance(value, str)) or len(value) < 1:
             raise ValueError(f"{attr} must be a string that is at least 2 characters long!")
         return value
 
     @validates('username')
-    def validate_columns(self, attr, value):
-        if (Users_Distributors.query.filter(Users_Distributors.username == value)):
+    def validate_username(self, attr, value):
+        username_taken_distributor = Users_Distributors.query.filter(Users_Distributors.username == value).first()
+        username_taken_customer = Users_Customers.query.filter(Users_Customers.username == value).first()
+
+        if (username_taken_distributor or username_taken_customer):
             raise ValueError(f"{attr} is already taken, please pick a new username")
         return value
 
@@ -81,15 +84,17 @@ class Users_Distributors(db.Model, SerializerMixin):
 
 
 
-    @validates('first_name', 'last_name', 'company_name', 'username', 'password_hash', 'user_type', 'email')
+    @validates('first_name', 'last_name', 'company_name','password_hash', 'user_type')
     def validate_columns(self, attr, value):
         if (not isinstance(value, str)) or len(value) < 1:
             raise ValueError(f"{attr} must be a string that is at least 2 characters long!")
         return value
 
     @validates('username')
-    def validate_columns(self, attr, value):
-        if (Users_Customers.query.filter(Users_Customers.username == value)):
+    def validate_username(self, attr, value):
+        username_taken_distributor = Users_Distributors.query.filter(Users_Distributors.username == value).first()
+        username_taken_customer = Users_Customers.query.filter(Users_Customers.username == value).first()
+        if (username_taken_customer or username_taken_distributor):
             raise ValueError(f"{attr} is already taken, please pick a new username")
         return value
 
@@ -178,6 +183,7 @@ class Customers_Distributors(db.Model, SerializerMixin):
 
 
     serialize_rules = ('-customer.distributors','-distributor.customers')
+
 
 
 
