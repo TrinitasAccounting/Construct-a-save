@@ -163,6 +163,10 @@ function App() {
 
 
 
+
+
+
+
   // Getting all of the distributors for all single customer__________________
   useEffect(() => {
     fetch('/customers/distributors')
@@ -216,34 +220,37 @@ function App() {
 
 
   // Add a new customer distributor relationship from the my distributors page (POST)
-  // function addNewDistributor(newDistributor) {
-  //   fetch('/customers/distributors/addrelationship', {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Accept": "application/json"
-  //     },
-  //     body: JSON.stringify(newDistributor)
-  //   })
-  //     .then(res => {
-  //       if (res.ok) {
-  //         res.json().then(newDistributorData => {
-  //           setCustomersDistributorRelationships([...customersDistributorRelationships, newDistributorData])
+  function addNewDistributor(newDistributor) {
+    fetch('/customers/distributors', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(newDistributor)
+    })
+      .then(res => {
+        if (res.ok) {
+          res.json().then(newDistributorData => {
+            // setDistributors([...distributors, newDistributorData])
+            console.log(newDistributorData)
 
-  //         })
-  //       }
-  //       else if (res.status === 400) {
-  //         res.json().then(errorData => alert(`Error: ${errorData.error}`))
-  //       }
-  //       else if (res.status === 401) {
-  //         res.json().then(errorData => alert(`Error: ${errorData.error}`))
-  //       }
-  //       else {
-  //         res.json().then(() => alert("Error: Something went wrong"))
-  //       }
-  //     })
-  // }
+          })
+        }
+        else if (res.status === 400) {
+          res.json().then(errorData => alert(`Error: ${errorData.error}`))
+        }
+        else if (res.status === 401) {
+          res.json().then(errorData => alert(`Error: ${errorData.error}`))
+        }
+        else {
+          res.json().then(() => alert("Error: Something went wrong"))
+        }
+      })
+  }
 
+
+  // console.log(distributors);
 
 
 
@@ -400,7 +407,8 @@ function App() {
         signupUserDistributor: signupUserDistributor,
         allDistributors: allDistributors,
         slideOpen: slideOpen,
-        onShowNewProduct: onShowNewProduct
+        onShowNewProduct: onShowNewProduct,
+        addNewDistributor: addNewDistributor
       }} />
 
     </div>)

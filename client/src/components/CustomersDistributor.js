@@ -11,7 +11,7 @@ import NewDistributorSlideOver from "./NewDistributorSlideOver";
 
 function CustomersDistributors() {
 
-    const { distributors, user, allDistributors } = useOutletContext();
+    const { distributors, user, allDistributors, addNewDistributor } = useOutletContext();
 
     const [distributorSlide, setDistributorSlide] = useState(false);
 
@@ -66,7 +66,7 @@ function CustomersDistributors() {
                     </button> */}
                 </div>
             </div>
-            <NewDistributorSlideOver distributorSlide={distributorSlide} openCloseDistributorSlide={openCloseDistributorSlide} allDistributors={allDistributors} />
+            <NewDistributorSlideOver distributorSlide={distributorSlide} addNewDistributor={addNewDistributor} openCloseDistributorSlide={openCloseDistributorSlide} allDistributors={allDistributors} />
             {/* <DropdownSelect allDistributors={allDistributors} /> */}
             <DistributorCards distributors={distributors} />
             {/* <h1 className='text-4xl'>DistributorCards</h1> */}

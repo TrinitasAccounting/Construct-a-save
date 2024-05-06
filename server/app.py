@@ -235,7 +235,7 @@ class CustomersDistributors(Resource):
         # distributor_user = db.session.get(Users_Distributors, session.get('distributor_id'))
         user = Users_Customers.query.filter(Users_Customers.id == session.get('customer_id')).first()
 
-        if (customer_user):
+        if (user):
             try:
                 new_customer_distributor_relationship = Customers_Distributors(distributor_name=request.json.get('distributor_name'), customer_id=user.id, distributor_id=request.json.get('distributor_id'))
                 db.session.add(new_customer_distributor_relationship)
@@ -259,6 +259,35 @@ class CustomersDistributors(Resource):
 
 
 api.add_resource(CustomersDistributors, '/customers/distributors')
+
+
+
+
+# class CustomerDistributorByID(Resource):
+
+#     def delete(self,id):
+#         # product = Customer_Products.query.filter(Customer_Products.id == id)
+#         distributor_relationship = db.session.get(Customers_Distributors, id)
+
+#         if product:
+#             db.session.delete(product)
+#             db.session.commit()
+#             response_body = {}
+#             return make_response(response_body, 204)
+
+#         else: 
+#             response_body = {
+#                 'error': "Product Not Found"
+#             }
+#             return make_response(response_body, 404)
+
+
+        
+
+
+
+
+
 
 
 

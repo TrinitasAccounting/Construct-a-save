@@ -9,7 +9,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function DropdownSelect({ allDistributors, selectedDistributorForm, updateSelectedDistributorForm }) {
+export default function DropdownSelect({ allDistributors, selectedDistributorForm, updateSelectedDistributorForm, addNewDistributor, selected, setSelected }) {
 
 
     const people = [
@@ -31,10 +31,23 @@ export default function DropdownSelect({ allDistributors, selectedDistributorFor
         distributors_all.push(distributor)
     })
 
-    const [selected, setSelected] = useState({ company_name: 'Select a Distributor' })
+    // const [selected, setSelected] = useState({ company_name: 'Select a Distributor' })
 
-    console.log(selected.company_name);
-    console.log(selected.id);
+
+    // let newDistributorFormData = { company_name: selected.company_name, distributor_id: selected.id }
+
+    // console.log(newDistributorFormData);
+
+
+    // updateSelectedDistributorForm(arrayTest)
+
+
+    // function handleSubmit(event) {
+    //     event.preventDefault()
+    //     addNewDistributor(newDistributorFormData)
+    // }
+
+
 
 
 

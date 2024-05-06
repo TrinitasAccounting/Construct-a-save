@@ -48,7 +48,7 @@ import DropdownSelect from "./DropdownSelect";
 //     },
 // ]
 
-export default function NewDistributorSlideOver({ distributorSlide, openCloseDistributorSlide, allDistributors }) {
+export default function NewDistributorSlideOver({ distributorSlide, openCloseDistributorSlide, allDistributors, addNewDistributor }) {
 
     // Dropdown Selection States and Functions passed_____________
     const [selectedDistributorForm, setSelectedDistributorForm] = useState({
@@ -56,9 +56,26 @@ export default function NewDistributorSlideOver({ distributorSlide, openCloseDis
         distributor_id: ""
     })
 
-    function updateSelectedDistributorForm(event) {
-        setSelectedDistributorForm({ ...selectedDistributorForm, [event.target.name]: event.target.value })
+    function updateSelectedDistributorForm(newDistributor) {
+        setSelectedDistributorForm(newDistributor)
     }
+
+    function handleSubmitDistributor(event) {
+        event.preventDefault()
+
+
+        // console.log(selectedDistributorForm);
+
+    }
+
+    // console.log(selectedDistributorForm);
+
+
+
+
+
+
+
 
 
 
@@ -86,10 +103,20 @@ export default function NewDistributorSlideOver({ distributorSlide, openCloseDis
 
 
 
-
-
+    const [selected, setSelected] = useState({ company_name: 'Select a Distributor' })
 
     const [open, setOpen] = useState(true)
+
+    let newDistributorFormData = { distributor_name: selected.company_name, distributor_id: selected.id }
+
+    // console.log(newDistributorFormData);
+
+    function handleInviteSubmit(event) {
+        event.preventDefault()
+        addNewDistributor(newDistributorFormData)
+        // console.log(newDistributorFormData)
+    }
+
 
     return (
         <>
@@ -121,7 +148,7 @@ export default function NewDistributorSlideOver({ distributorSlide, openCloseDis
                                     leaveTo="translate-x-full"
                                 >
                                     <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
-                                        <form onSubmit={handleSubmit} className="flex h-full flex-col divide-y divide-gray-200 bg-white shadow-xl">
+                                        <form onSubmit={handleInviteSubmit} className="flex h-full flex-col divide-y divide-gray-200 bg-white shadow-xl">
                                             <div className="h-0 flex-1 overflow-y-auto">
                                                 <div className="bg-indigo-700 px-4 py-6 sm:px-6">
                                                     <div className="flex items-center justify-between">
@@ -153,7 +180,7 @@ export default function NewDistributorSlideOver({ distributorSlide, openCloseDis
 
 
 
-                                                                {<DropdownSelect allDistributors={allDistributors} selectedDistributorForm={selectedDistributorForm} updateSelectedDistributorForm={updateSelectedDistributorForm} />}
+                                                                {<DropdownSelect allDistributors={allDistributors} selected={selected} setSelected={setSelected} addNewDistributor={addNewDistributor} selectedDistributorForm={selectedDistributorForm} updateSelectedDistributorForm={updateSelectedDistributorForm} />}
 
 
 
