@@ -67,7 +67,7 @@ function CustomersDistributors() {
                 </div>
             </div>
             <NewDistributorSlideOver distributorSlide={distributorSlide} openCloseDistributorSlide={openCloseDistributorSlide} allDistributors={allDistributors} />
-            <DropdownSelect allDistributors={allDistributors} />
+            {/* <DropdownSelect allDistributors={allDistributors} /> */}
             <DistributorCards distributors={distributors} />
             {/* <h1 className='text-4xl'>DistributorCards</h1> */}
         </div>

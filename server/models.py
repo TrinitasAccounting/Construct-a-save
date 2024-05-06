@@ -27,7 +27,8 @@ class Users_Customers(db.Model, SerializerMixin):
     distributors = db.relationship('Customers_Distributors', back_populates='customer')
 
 
-    serialize_rules = ('-products.customer','-products.orders')
+    # serialize_rules = ('-products.customer','-products.orders', '-distributors',)
+    serialize_only = ('id', 'company_name', 'user_type', 'first_name', 'last_name', 'email', 'username', 'password_hash')
 
 
     @validates('first_name', 'last_name', 'company_name', 'password_hash', 'user_type')
@@ -181,8 +182,9 @@ class Customers_Distributors(db.Model, SerializerMixin):
     distributor = db.relationship('Users_Distributors', back_populates='customers')
 
 
-
+    # If I change this back to '-distributor.customers' then it will show me all of the distributors information
     serialize_rules = ('-customer.distributors','-distributor.customers')
+    # serialize_only = ('id', 'distributor_name')
 
 
 

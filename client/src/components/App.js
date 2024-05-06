@@ -24,6 +24,10 @@ function App() {
   const [products, setProducts] = useState([]);
 
 
+
+  console.log(user);
+
+
   //   useEffect(() => {
   //     fetch(`/customers/products/${user.id}`)
   //       .then(res => {

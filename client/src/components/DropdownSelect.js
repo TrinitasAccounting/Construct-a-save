@@ -9,7 +9,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function DropdownSelect({ allDistributors }) {
+export default function DropdownSelect({ allDistributors, selectedDistributorForm, updateSelectedDistributorForm }) {
 
 
     const people = [
@@ -33,7 +33,10 @@ export default function DropdownSelect({ allDistributors }) {
 
     const [selected, setSelected] = useState({ company_name: 'Select a Distributor' })
 
-    // console.log(selected);
+    console.log(selected.company_name);
+    console.log(selected.id);
+
+
 
 
 

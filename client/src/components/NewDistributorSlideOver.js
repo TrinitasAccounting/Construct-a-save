@@ -50,6 +50,18 @@ import DropdownSelect from "./DropdownSelect";
 
 export default function NewDistributorSlideOver({ distributorSlide, openCloseDistributorSlide, allDistributors }) {
 
+    // Dropdown Selection States and Functions passed_____________
+    const [selectedDistributorForm, setSelectedDistributorForm] = useState({
+        distributor_name: "",
+        distributor_id: ""
+    })
+
+    function updateSelectedDistributorForm(event) {
+        setSelectedDistributorForm({ ...selectedDistributorForm, [event.target.name]: event.target.value })
+    }
+
+
+
 
     const { addNewProduct } = useOutletContext();
 
@@ -141,7 +153,7 @@ export default function NewDistributorSlideOver({ distributorSlide, openCloseDis
 
 
 
-                                                                {<DropdownSelect allDistributors={allDistributors} />}
+                                                                {<DropdownSelect allDistributors={allDistributors} selectedDistributorForm={selectedDistributorForm} updateSelectedDistributorForm={updateSelectedDistributorForm} />}
 
 
 

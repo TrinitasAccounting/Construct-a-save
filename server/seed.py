@@ -69,9 +69,10 @@ if __name__ == '__main__':
         # db.session.commit()
 
 
-        # customer_distributor1 = Customers_Distributors(distributor_name='Lumber Supplier', customer_id=1, distributor_id=3)
-        # db.session.add_all([customer_distributor1])
-        # db.session.commit()
+        customer_distributor1 = Customers_Distributors(distributor_name='Lumber Supplier', customer_id=1, distributor_id=3)
+        customer_distributor2 = Customers_Distributors(distributor_name='Massive Supplies', customer_id=1, distributor_id=1)
+        db.session.add_all([customer_distributor1, customer_distributor2])
+        db.session.commit()
 
 
 

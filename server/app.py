@@ -199,13 +199,13 @@ class CustomersDistributors(Resource):
         user = Users_Customers.query.filter(Users_Customers.id == session.get('customer_id')).first()
 
         if user and user.user_type == 'customer':
-            distributors = Users_Distributors.query.all()
+            # distributors = Users_Distributors.query.all()
 
             response_body = [distributor.to_dict() for distributor in list(set(user.distributors))]
             return make_response(response_body, 200)
 
             # This is how we can filter to only show the users connected distributors__________________________
-            # user_distributors = [distributor.to_dict(only=('id', 'company_name')) for distributor in list(set(user.distributors))]
+            # user_distributors = [distributor.to_dict(only=('id',)) for distributor in list(set(user.distributors))]
         
         # elif user and user.type != 'customer':
         #     pass
@@ -216,17 +216,44 @@ class CustomersDistributors(Resource):
             return make_response(response_body, 401)
 
 
+    # def post(self):
+    #     # 'customer_id' is what matches the session['------']
+    #     user = Users_Customers.query.filter(Users_Customers.id == session.get('customer_id')).first()
+
+
+    #     # You can make this show different things as well depending on the customer type. Look back at the lecture code_____
+    #     if user and user.user_type == 'customer':
+    #         try:
+    #             pass
+    #         except:
+    #             pass
+
+
     def post(self):
-        # 'customer_id' is what matches the session['------']
+        # user_is_a_customer = Users_Customers.query.filter(Users_Customers.id == session.get(''))
+        # customer_user = db.session.get(Users_Customers, session.get('customer_id'))
+        # distributor_user = db.session.get(Users_Distributors, session.get('distributor_id'))
         user = Users_Customers.query.filter(Users_Customers.id == session.get('customer_id')).first()
 
-
-        # You can make this show different things as well depending on the customer type. Look back at the lecture code_____
-        if user and user.user_type == 'customer':
+        if (customer_user):
             try:
-                pass
+                new_customer_distributor_relationship = Customers_Distributors(distributor_name=request.json.get('distributor_name'), customer_id=user.id, distributor_id=request.json.get('distributor_id'))
+                db.session.add(new_customer_distributor_relationship)
+                db.session.commit()
+                response_body = new_customer_distributor_relationship.to_dict()
+                return make_response(response_body, 201)
+
             except:
-                pass
+                response_body = {
+                    "error": "This distributor cannot be added yet"
+                }
+                return make_response(response_body, 400)
+
+        else:
+            response_body = {
+                "error": "You are not authorized to add a new distributor relationship"
+            }
+            return make_response(response_body, 401)
 
 
 
@@ -322,7 +349,7 @@ class Login(Resource):
             # Check the below line, this may be wrong and not called "customer_id"
             session['customer_id'] = customer_user.id
             response_body = customer_user.to_dict()
-            response_body['distributors'] = [distributor.to_dict(only=('id', 'company_name')) for distributor in list(set(customer_user.distributors))]
+            response_body['distributors'] = [distributor.to_dict() for distributor in list(set(customer_user.distributors))]
             return make_response(response_body, 201)
 
         # This must have a validation or constraint to make sure usernames in the customer and distributor tables do not match. Otherwise, we will have to create a separate route for the distributor login
@@ -330,7 +357,7 @@ class Login(Resource):
             # Check the below line, this may be wrong and not called "customer_id"
             session['distributor_id'] = distributor_user.id
             response_body = distributor_user.to_dict()
-            response_body['customers'] = [customer.to_dict(only=('id', 'company_name')) for customer in list(set(distributor_user.customers))]
+            response_body['customers'] = [customer.to_dict() for customer in list(set(distributor_user.customers))]
             return make_response(response_body, 201)
 
         else:
