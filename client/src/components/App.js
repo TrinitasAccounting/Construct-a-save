@@ -25,7 +25,7 @@ function App() {
 
 
 
-  console.log(user);
+  // console.log(user);
 
 
   //   useEffect(() => {
@@ -232,8 +232,8 @@ function App() {
       .then(res => {
         if (res.ok) {
           res.json().then(newDistributorData => {
-            // setDistributors([...distributors, newDistributorData])
-            console.log(newDistributorData)
+            setDistributors([...distributors, newDistributorData])
+            // console.log(newDistributorData)
 
           })
         }
@@ -250,7 +250,24 @@ function App() {
   }
 
 
-  // console.log(distributors);
+
+
+  // Deleting a Customer Distributor Relationship from the Customers_Distributors Table (DELETE)
+  function deleteDistributorRelationship(id) {
+    fetch(`/customers/distributors/${id}`, {
+      method: "DELETE"
+    })
+      .then(res => {
+        if (res.ok) {
+          setDistributors(distributor => distributor.filter(distributor => {
+            return distributor.id !== id
+          }))
+        }
+        else if (res.status === 404) {
+          res.json().then(errorData => alert(`Error: ${errorData.error}`))
+        }
+      })
+  }
 
 
 
@@ -408,7 +425,8 @@ function App() {
         allDistributors: allDistributors,
         slideOpen: slideOpen,
         onShowNewProduct: onShowNewProduct,
-        addNewDistributor: addNewDistributor
+        addNewDistributor: addNewDistributor,
+        deleteDistributorRelationship: deleteDistributorRelationship
       }} />
 
     </div>)

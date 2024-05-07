@@ -11,7 +11,7 @@ import NewDistributorSlideOver from "./NewDistributorSlideOver";
 
 function CustomersDistributors() {
 
-    const { distributors, user, allDistributors, addNewDistributor } = useOutletContext();
+    const { distributors, user, allDistributors, addNewDistributor, deleteDistributorRelationship } = useOutletContext();
 
     const [distributorSlide, setDistributorSlide] = useState(false);
 
@@ -68,7 +68,7 @@ function CustomersDistributors() {
             </div>
             <NewDistributorSlideOver distributorSlide={distributorSlide} addNewDistributor={addNewDistributor} openCloseDistributorSlide={openCloseDistributorSlide} allDistributors={allDistributors} />
             {/* <DropdownSelect allDistributors={allDistributors} /> */}
-            <DistributorCards distributors={distributors} />
+            <DistributorCards distributors={distributors} deleteDistributorRelationship={deleteDistributorRelationship} />
             {/* <h1 className='text-4xl'>DistributorCards</h1> */}
         </div>
     )

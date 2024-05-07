@@ -103,6 +103,8 @@ export default function NewDistributorSlideOver({ distributorSlide, openCloseDis
 
 
 
+
+
     const [selected, setSelected] = useState({ company_name: 'Select a Distributor' })
 
     const [open, setOpen] = useState(true)
@@ -115,6 +117,7 @@ export default function NewDistributorSlideOver({ distributorSlide, openCloseDis
         event.preventDefault()
         addNewDistributor(newDistributorFormData)
         // console.log(newDistributorFormData)
+        openCloseDistributorSlide()
     }
 
 

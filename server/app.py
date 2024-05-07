@@ -263,23 +263,26 @@ api.add_resource(CustomersDistributors, '/customers/distributors')
 
 
 
-# class CustomerDistributorByID(Resource):
+class CustomerDistributorByID(Resource):
 
-#     def delete(self,id):
-#         # product = Customer_Products.query.filter(Customer_Products.id == id)
-#         distributor_relationship = db.session.get(Customers_Distributors, id)
+    def delete(self,id):
+        # product = Customer_Products.query.filter(Customer_Products.id == id)
+        distributor_relationship = db.session.get(Customers_Distributors, id)
 
-#         if product:
-#             db.session.delete(product)
-#             db.session.commit()
-#             response_body = {}
-#             return make_response(response_body, 204)
+        if distributor_relationship:
+            db.session.delete(distributor_relationship)
+            db.session.commit()
+            response_body = {}
+            return make_response(response_body, 204)
 
-#         else: 
-#             response_body = {
-#                 'error': "Product Not Found"
-#             }
-#             return make_response(response_body, 404)
+        else: 
+            response_body = {
+                'error': "Customer Distributor Relationship Not Found"
+            }
+            return make_response(response_body, 404)
+
+
+api.add_resource(CustomerDistributorByID, '/customers/distributors/<int:id>')
 
 
         
