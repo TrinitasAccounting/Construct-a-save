@@ -78,7 +78,7 @@ function SignupFormCustomer() {
                     <span className="isolate inline-flex rounded-md shadow-sm left-10">
                         <button
                             type="button"
-                            className="bg-green-500 relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 focus:z-10"
+                            className="bg-green-400 relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 focus:z-10"
 
                         >
                             Sign Up as a Customer

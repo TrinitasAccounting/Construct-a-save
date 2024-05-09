@@ -8,7 +8,6 @@ function DeleteButton({ distributor, deleteDistributorRelationship }) {
 
     function handleDeleteButtonClick() {
 
-        console.log(distributor.id)
         deleteDistributorRelationship(distributor.id)
 
 
@@ -20,7 +19,7 @@ function DeleteButton({ distributor, deleteDistributorRelationship }) {
 
 
     return (
-        <button onClick={handleDeleteButtonClick}>Delete</button>
+        <button onClick={handleDeleteButtonClick} className=' border-solid text-red-700'>Delete</button>
 
     )
 }

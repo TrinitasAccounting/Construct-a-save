@@ -59,11 +59,11 @@ export default function NavBar({ userData, logOutUser }) {
 
 
     const navigation = [
-        { name: 'Home', href: '/customers', current: true },
+        { name: 'Home', href: '/', current: true },
         { name: 'New Order', href: '/customers', current: true },
-        { name: "My Distributor's", href: '/mydistributors', current: false },
-        { name: "My Product's", href: '/customers/products', current: false },
-        { name: 'About Us', href: '#', current: false },
+        { name: "My Distributor's", href: '/mydistributors', current: true },
+        { name: "My Product's", href: '/customers/products', current: true },
+        { name: 'About Us', href: '#', current: true },
         // { name: 'Login', href: '/login', current: false },
         { name: 'Log Out', href: '/login', current: 'logout' },
         // { name: 'Sign Up', href: '/signup', current: false },
@@ -75,9 +75,9 @@ export default function NavBar({ userData, logOutUser }) {
         //         // { name: "My Distributor's", href: '/mydistributors', current: false },
         //         // { name: "My Product's", href: '#', current: false },
         //         // { name: 'About Us', href: '#', current: false },
-        { name: 'Login', href: '/login', current: false },
+        { name: 'Login', href: '/login', current: true },
         // { name: 'Log Out', href: '/login', current: 'logout' },
-        { name: 'Sign Up', href: '/customers/signup', current: false },
+        { name: 'Sign Up', href: '/customers/signup', current: true },
     ]
 
 
@@ -110,11 +110,15 @@ export default function NavBar({ userData, logOutUser }) {
                                     <div className="flex h-16 items-center justify-between">
                                         <div className="flex items-center">
                                             <div className="flex-shrink-0">
-                                                <img
+                                                {/* <img
                                                     className="h-8 w-8"
-                                                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                                                    src="http://www.w3.org/2000/svg"
                                                     alt="Your Company"
-                                                />
+                                                /> */}
+                                                {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+  <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+</svg> */}
+
                                             </div>
                                             <div className="hidden md:block">
                                                 <div className="ml-10 flex items-baseline space-x-4">
@@ -374,11 +378,11 @@ export default function NavBar({ userData, logOutUser }) {
                                     <div className="flex h-16 items-center justify-between">
                                         <div className="flex items-center">
                                             <div className="flex-shrink-0">
-                                                <img
+                                                {/* <img
                                                     className="h-8 w-8"
                                                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                                                     alt="Your Company"
-                                                />
+                                                /> */}
                                             </div>
                                             <div className="hidden md:block">
                                                 <div className="ml-10 flex items-baseline space-x-4">

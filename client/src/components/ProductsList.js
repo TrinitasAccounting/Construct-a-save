@@ -98,7 +98,7 @@ function ProductList() {
             {isEditing ? (
                 <div className='m-4 grid gap-4 sm:grid-cols-12'>
 
-                    <div className='min-h-[30px] shadown col-span-7'>
+                    <div className='min-h-[30px] col-span-7'>
                         <EditProduct stopEditingAfterDelete={stopEditingAfterDelete} deleteProduct={deleteProduct} editForm={editForm} handleChange={handleChange} handleProductUpdate={handleProductUpdate} />
                     </div>
 
@@ -146,7 +146,7 @@ function ProductList() {
                     <div className="px-4 sm:px-6 lg:px-8">
                         <div className="sm:flex sm:items-center">
                             <div className="sm:flex-auto">
-                                <h1 className="text-base font-semibold leading-6 text-gray-900">Products</h1>
+                                <h1 className="text-base font-semibold leading-6 text-gray-900">List of products shown to distributors you work with</h1>
                                 {/* <p className="mt-2 text-sm text-gray-700">
                                     A list of all the users in your account including their name, title, email and role.
                                 </p> */}
@@ -167,13 +167,13 @@ function ProductList() {
                                         <table className="min-w-full divide-y divide-gray-300">
                                             <thead className="bg-gray-100">
                                                 <tr>
-                                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                                    <th scope="col" className="px-3 py-3.5 text-left text-lg font-semibold text-gray-900">
                                                         Product ID
                                                     </th>
-                                                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-lg font-semibold text-gray-900 sm:pl-6">
                                                         Product Name
                                                     </th>
-                                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                                    <th scope="col" className="px-3 py-3.5 text-left text-lg font-semibold text-gray-900">
                                                         Manufacturer
                                                     </th>
                                                     {/* <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">

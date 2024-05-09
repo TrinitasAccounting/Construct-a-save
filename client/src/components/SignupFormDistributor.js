@@ -102,7 +102,7 @@ function SignupFormDistributor() {
                         </button>
                         <button
                             type="button"
-                            className="bg-orange-500 relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 focus:z-10"
+                            className="bg-orange-400 relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 focus:z-10"
 
                         >
                             Sign Up as a Distributor
