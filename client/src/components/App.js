@@ -409,7 +409,26 @@ function App() {
   return (
     <div>
       <NavBar userData={user} logOutUser={logOutUser} />
-      {user ? <h1 className='text-10'>Welcome {user.username}</h1> : null}
+      {/* {user ? <h1 className='text-10'>Welcome {user.username}</h1> : null} */}
+      {/* <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
+        <div className="text-center">
+          <p className="text-base font-semibold text-indigo-600"></p>
+          <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">Coming Soon</h1>
+          <p className="mt-6 text-base leading-7 text-gray-600">Sorry, the home page isn't completed yet. Please try another page.</p>
+          <div className="mt-10 flex items-center justify-center gap-x-6">
+            <a
+              href="/mydistributors"
+              className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Check Out another Page
+            </a>
+            <a href="#" className="text-sm font-semibold text-gray-900">
+              Contact support <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </div>
+      </main> */}
+      {/* <h1>Is this the correct page sections</h1> */}
       {/* {user ? null : <Navigate to='/login' />} */}
       {/* <Navigate to='/login' /> */}
       <Outlet context={{

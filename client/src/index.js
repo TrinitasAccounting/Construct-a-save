@@ -11,6 +11,7 @@ import SignupFormCustomer from './components/SignupFormCustomer';
 import SignupFormDistributor from "./components/SignupFormDistributor";
 // import CustomerProducts from './components/CustomerProducts';
 import ProductList from "./components/ProductsList";
+import CommingSoonPage from "./components/ComingSoon";
 
 // import App from "./components/App";
 
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
         path: '/',
         element: <App />,
         children: [
+            {
+                path: '/',
+                element: <CommingSoonPage />
+            },
             {
                 path: '/mydistributors',
                 element: <CustomersDistributors />
@@ -40,6 +45,10 @@ const router = createBrowserRouter([
             {
                 path: '/customers/products',
                 element: <ProductList />
+            },
+            {
+                path: '/customers',
+                element: <CommingSoonPage />
             },
 
         ]

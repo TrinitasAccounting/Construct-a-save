@@ -2,45 +2,12 @@
 
 
 
-// Example of only showing depending on the user or user type___________________________
-// function NavBar({user, logOutUser}) {
-//     return (
-//         <nav className="navbar">
-//             {/* {user ? 
-//                 <>
-//                     <NavLink to="/">Home</NavLink>
-//                     <NavLink to="/add_hotel">Add Hotel</NavLink>
-//                     <NavLink onClick={logOutUser} to="/login">Log Out</NavLink>
-//                 </> 
-//                 :
-//                 <NavLink to="/login">Login</NavLink>
-//             } */}
-//             {user ? <NavLink to="/">Home</NavLink> : null}
-//             {user && user.type === 'admin' ? <NavLink to="/add_hotel">Add Hotel</NavLink> : null}
-//             {user ? <NavLink onClick={logOutUser} to="/login">Log Out</NavLink> : null}
-//             {!user ? <NavLink to="/login">Login</NavLink> : null}
-//             {!user ? <NavLink to="/signup">Signup</NavLink> : null}
-//         </nav>
-//     )
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
+import Avatar from './Avatar';
 
 
 function classNames(...classes) {
@@ -50,19 +17,19 @@ function classNames(...classes) {
 export default function NavBar({ userData, logOutUser }) {
 
     const user = {
-        name: 'Tom Cook',
-        email: 'tom@example.com',
+        name: 'Clay Mangum',
+        email: 'clay@software.com',
         imageUrl:
-            'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+            Avatar
     }
 
 
 
     const navigation = [
         { name: 'Home', href: '/', current: true },
-        { name: 'New Order', href: '/customers', current: true },
-        { name: "My Distributor's", href: '/mydistributors', current: true },
         { name: "My Product's", href: '/customers/products', current: true },
+        { name: "My Distributor's", href: '/mydistributors', current: true },
+        { name: 'New Order', href: '/customers', current: true },
         { name: 'About Us', href: '#', current: true },
         // { name: 'Login', href: '/login', current: false },
         { name: 'Log Out', href: '/login', current: 'logout' },
@@ -195,7 +162,7 @@ export default function NavBar({ userData, logOutUser }) {
                                                         <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                                             <span className="absolute -inset-1.5" />
                                                             <span className="sr-only">Open user menu</span>
-                                                            <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                                                            <span className="h-8 w-8 rounded-full">{Avatar}</span>
                                                         </Menu.Button>
                                                     </div>
                                                     <Transition
