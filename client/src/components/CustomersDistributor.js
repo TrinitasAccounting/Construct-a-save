@@ -51,25 +51,17 @@ function CustomersDistributors() {
 
     return (
         <div>
-            {/* <ul>
-                {distributorsComponent}
-            </ul> */}
+
             <div className='m-4 grid gap-4 grid-cols-12'>
                 <div className='col-span-11'></div>
                 <div >
-                    {/* <button
-                        onClick={openCloseDistributorSlide}
-                        type="button"
-                        className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    >
-                        + Add New Distributor
-                    </button> */}
+
                 </div>
             </div>
-            <NewDistributorSlideOver distributorSlide={distributorSlide} addNewDistributor={addNewDistributor} openCloseDistributorSlide={openCloseDistributorSlide} allDistributors={allDistributors} />
-            {/* <DropdownSelect allDistributors={allDistributors} /> */}
+            <NewDistributorSlideOver distributors={distributors} distributorSlide={distributorSlide} addNewDistributor={addNewDistributor} openCloseDistributorSlide={openCloseDistributorSlide} allDistributors={allDistributors} />
+
             <DistributorCards distributors={distributors} deleteDistributorRelationship={deleteDistributorRelationship} />
-            {/* <h1 className='text-4xl'>DistributorCards</h1> */}
+
         </div>
     )
 }

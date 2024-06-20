@@ -48,7 +48,7 @@ import DropdownSelect from "./DropdownSelect";
 //     },
 // ]
 
-export default function NewDistributorSlideOver({ distributorSlide, openCloseDistributorSlide, allDistributors, addNewDistributor }) {
+export default function NewDistributorSlideOver({ distributors, distributorSlide, openCloseDistributorSlide, allDistributors, addNewDistributor }) {
 
     // Dropdown Selection States and Functions passed_____________
     const [selectedDistributorForm, setSelectedDistributorForm] = useState({
@@ -70,6 +70,23 @@ export default function NewDistributorSlideOver({ distributorSlide, openCloseDis
 
     // console.log(selectedDistributorForm);
 
+
+    // console.log(distributors);
+    // console.log(allDistributors);
+
+
+    // Filtering to only show the distributors a customer isnt already working with on the distrbutor slide over drop down___________________
+    const distributorIDsArray = distributors.map((distributor) => {
+        return (distributor.distributor_id)
+    })
+
+    const filteredDistributorArray = allDistributors.filter((distributor) => {
+        return (!distributorIDsArray.includes(distributor.id))
+    })
+
+    console.log(filteredDistributorArray);
+
+    // ____________________________________________________________________________________
 
 
 
@@ -183,7 +200,7 @@ export default function NewDistributorSlideOver({ distributorSlide, openCloseDis
 
 
 
-                                                                {<DropdownSelect allDistributors={allDistributors} selected={selected} setSelected={setSelected} addNewDistributor={addNewDistributor} selectedDistributorForm={selectedDistributorForm} updateSelectedDistributorForm={updateSelectedDistributorForm} />}
+                                                                {<DropdownSelect filteredDistributorArray={filteredDistributorArray} allDistributors={allDistributors} selected={selected} setSelected={setSelected} addNewDistributor={addNewDistributor} selectedDistributorForm={selectedDistributorForm} updateSelectedDistributorForm={updateSelectedDistributorForm} />}
 
 
 

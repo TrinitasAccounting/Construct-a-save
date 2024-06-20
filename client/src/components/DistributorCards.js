@@ -3,38 +3,11 @@
 import { EnvelopeIcon, PhoneIcon } from '@heroicons/react/20/solid'
 import DeleteButton from './ButtonForDelete';
 
-const people = [
-    {
-        name: 'Jane Cooper',
-        title: 'Regional Paradigm Technician',
-        role: 'Admin',
-        email: 'janecooper@example.com',
-        telephone: '+1-202-555-0170',
-        imageUrl:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-    },
-    {
-        name: 'Jane Cooper',
-        title: 'Regional Paradigm Technician',
-        role: 'Admin',
-        email: 'janecooper@example.com',
-        telephone: '+1-202-555-0170',
-        imageUrl:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-    },
-    // More people...
-]
-
 
 
 function handleDeleteClick(distributor) {
     console.log(distributor.id)
 }
-
-
-
-
-
 
 
 
@@ -84,7 +57,7 @@ export default function DistributorCards({ distributors, deleteDistributorRelati
                                     </div>
                                     <p className="mt-1 truncate text-sm text-gray-500">{distributor['distributor'].first_name} {distributor['distributor'].last_name}</p>
                                 </div>
-                                {/* <img className="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300" src={person.imageUrl} alt="" /> */}
+
                                 <div >
                                     <DeleteButton distributor={distributor} deleteDistributorRelationship={deleteDistributorRelationship} />
                                 </div>
